@@ -1,0 +1,58 @@
+html {
+    background-color: rgb(116, 154, 187);
+    font-family: 'Orbitron', sans-serif;
+}
+
+h1{
+    text-align: center;
+}
+
+#scoreBox{
+    margin: auto;
+  width: 25%;
+  border: 3px solid rgb(0, 0, 0);
+  padding: 5px;
+  border-radius: 10%;
+
+}
+
+#item{
+    margin: auto;
+    width: 25%;
+    padding: 5px; 
+}
+
+
+
+#images{
+    display:flex;
+
+    
+}
+
+#rock {
+    
+    border: 2px solid black;
+    margin-right: 10%;
+    flex-wrap: wrap;
+    margin-left:25%;
+    border-radius: 50%;
+    
+    
+    
+}
+
+#paper {
+    border: 2px solid black;
+    margin-left: 2%;
+    margin-right:10%;
+    border-radius: 50%;
+
+}
+
+#scissors{
+    border: solid 2px black;
+    margin-right: 10%;
+    border-radius: 50%;
+    
+}
