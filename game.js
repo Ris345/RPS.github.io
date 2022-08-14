@@ -1,5 +1,6 @@
 
-
+// Future be able  to display images of rock, paper and scissors 
+// where the choice is mentioned. 
 let userScore = 0 
 let computerScore = 0
 
