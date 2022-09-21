@@ -1,88 +1,77 @@
+let userScore = 0;
+let computerScore = 0;
 
-// Future be able  to display images of rock, paper and scissors 
-// where the choice is mentioned. 
-let userScore = 0 
-let computerScore = 0
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
+const userChoice = document.getElementById("user-choice");
+const updateBoard = document.getElementById("update-board");
+const computerChoicedisplay = document.getElementById("computer-choice");
+const computerScoreBoard = document.getElementById("computer-score");
+const userScoreBoard = document.getElementById("user-score");
 
-let  Rock = document.getElementById('rock');
+rock.addEventListener("click", () => runGame("Rock"));
 
-   Rock.addEventListener('click' , function (r){
-    document.getElementById('userChoice').innerHTML = "ROCK"
-    let userChoice = 'Rock';
-    let computerChoice =  Math.floor(Math.random() * 3); 
-    if (userChoice === 'Rock' && computerChoice === 0 ){
-        document.getElementById('updateBoard').innerHTML = 'Tie! '
-        document.getElementById('computerChoice').innerHTML = 'ROCK'
+paper.addEventListener("click", () => runGame("Paper"));
 
-    } else if (  userChoice === 'Rock' && computerChoice === 1){
-        document.getElementById('computerChoice').innerHTML = 'PAPER'
-        document.getElementById('updateBoard').innerHTML = 'Computer Wins!'
-        computerScore ++ 
-        document.getElementById('computerScore').innerHTML = computerScore
-        
-    } else if (userChoice = 'Rock' && computerChoice === 2){
-        document.getElementById('updateBoard').innerHTML = 'User Wins!'
-        document.getElementById('computerChoice').innerHTML = 'SCISSORS'
-        userScore ++ 
-        document.getElementById('userScore').innerHTML = userScore
-        
-    }
+scissors.addEventListener("click", () => runGame("Scissors"));
 
-})
+function runGame(game) {
+  const computer = generateComputerChoice();
+  const gameResult = computeMatch(game, computer);
+  userChoice.innerText = game;
+  computerChoicedisplay.innerText = computer;
+  updateScore(gameResult);
+}
 
-let Paper = document.getElementById('paper');
+function updateScore(result) {
+  switch (result) {
+    case "win":
+      updateBoard.innerText = "User Wins!";
+      userScore++;
+      userScoreBoard.innerText = userScore;
+      break;
+    case "loss":
+      updateBoard.innerText = "Computer Wins!";
+      computerScore++;
+      computerScoreBoard.innerText = computerScore;
+      break;
+    case "tie":
+      updateBoard.innerText = "Tie";
+      break;
+    default:
+      break;
+  }
+}
 
-  Paper.addEventListener('click' , function (p){
-    document.getElementById('userChoice').innerHTML = "PAPER"
-    let userChoice = 'Paper'
-    let computerChoice =  Math.floor(Math.random() * 3); 
-    if (userChoice === 'Paper' && computerChoice === 0 ){
-        document.getElementById('updateBoard').innerHTML = 'User Wins! '
-        document.getElementById('computerChoice').innerHTML = 'ROCK'
-        userScore ++
-        document.getElementById('userScore').innerHTML = userScore 
+function generateComputerChoice() {
+  const choices = ["Rock", "Paper", "Scissors"];
+  const result = choices[Math.floor(Math.random() * 3)];
+  return result;
+}
 
-    } else if (  userChoice === 'Paper' && computerChoice === 1){
-        document.getElementById('updateBoard').innerHTML = 'Tie!'
-        document.getElementById('computerChoice').innerHTML = 'PAPER'
+function computeMatch(userChoice, computerChoice) {
+  const gameState = [
+    {
+      choice: "Rock",
+      Rock: "tie",
+      Paper: "loss",
+      Scissors: "win",
+    },
+    {
+      choice: "Paper",
+      Rock: "win",
+      Paper: "tie",
+      Scissors: "loss",
+    },
+    {
+      choice: "Scissors",
+      Rock: "loss",
+      Paper: "win",
+      Scissors: "tie",
+    },
+  ];
 
-    } else if (userChoice = 'Paper' && computerChoice === 2){
-        document.getElementById('updateBoard').innerHTML = 'Computer Wins!'
-        document.getElementById('computerChoice').innerHTML = 'SCISSORS'
-        computerScore ++ 
-        document.getElementById('computerScore').innerHTML = computerScore
-    }
-    
-})
-
-let Scissors = document.getElementById('scissors');
-
- Scissors.addEventListener('click' , function (s){
-    document.getElementById('userChoice').innerHTML = "SCISSORS"
-    let userChoice = 'Scissors'
-    let computerChoice =  Math.floor(Math.random() * 3); 
-    if (userChoice === 'Scissors' && computerChoice === 0 ){
-        document.getElementById('updateBoard').innerHTML = 'Computer Wins! '
-        document.getElementById('computerChoice').innerHTML = 'ROCK'
-        computerScore++ 
-        document.getElementById('computerScore').innerHTML = computerScore
-
-    } else if (  userChoice === 'Scissors' && computerChoice === 1){
-        document.getElementById('updateBoard').innerHTML = 'User Wins!'
-        document.getElementById('computerChoice').innerHTML = 'PAPER'
-        userScore ++ 
-        document.getElementById('userScore').innerHTML = userScore
-        
-    } else if (userChoice === 'Scissors' && computerChoice === 2){
-        document.getElementById('updateBoard').innerHTML = 'Tie!'
-        document.getElementById('computerChoice').innerHTML = 'SCISSORS'
-    }
-    
-})
-
-
-
-
-
-
-
+  const gameConditions = gameState.find(({ choice }) => choice === userChoice);
+  return gameConditions[computerChoice];
+}
